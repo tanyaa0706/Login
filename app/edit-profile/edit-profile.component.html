@@ -1,0 +1,69 @@
+<div class="mat-card-cvr" *ngIf="isLoggedIn; else loggedOut">
+    <mat-card class="example-card">
+
+      <mat-card-header>
+          <mat-card-title>Edit&nbsp;Profile</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+            <form class="my-form" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+                <mat-form-field class="full-width">
+                    <mat-label>First Name</mat-label>
+                    <input matInput type="text" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" maxlength="10" required>
+                    <mat-error *ngIf="f.submitted && firstName.invalid">
+                        <mat-error *ngIf="firstName.errors.required">First Name is required</mat-error>
+                        <mat-error *ngIf="firstName.errors.maxlength">First Name cannot have more than 10 characters</mat-error>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput type="text" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" maxlength="10" required>
+                    <mat-error *ngIf="f.submitted && lastName.invalid">
+                        <mat-error *ngIf="lastName.errors.required">Last Name is required</mat-error>
+                        <mat-error *ngIf="firstName.errors.maxlength">Last Name cannot have more than 10 characters</mat-error>   
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="text" name="email" [(ngModel)]="model.email" #email="ngModel" readonly email>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Mobile number</mat-label>
+                    <input matInput type="text" name="mobile" [(ngModel)]="model.mobile" #mobile="ngModel" [ngClass]="{ 'is-invalid': f.submitted && mobile.invalid }" required minlength="10" maxlength="10" pattern="^[0-9]{10}$">
+                    <mat-error *ngIf="f.submitted && mobile.invalid">
+                        <mat-error *ngIf="mobile.errors.required">Mobile number is required</mat-error>
+                        <mat-error *ngIf="mobile.errors.pattern">Mobile number must contain only 10 digits</mat-error>   
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                        <mat-label>Username</mat-label>
+                        <input matInput type="username" name="username" [(ngModel)]="model.username" #username="ngModel" readonly>
+                </mat-form-field>
+
+                <mat-card-actions>
+                    <button mat-raised-button>Edit Profile</button>
+                </mat-card-actions>
+                <!-- <mat-card-footer>After successful password reset, You will have to login again.</mat-card-footer> -->
+                <div class="alert alert-warning" *ngIf="f.submitted && isSuccessful">
+                    Profile Edited Successfully!!<br/>
+                </div>
+                <div class="alert alert-warning" *ngIf="f.submitted && isUpdateFailed">
+                    Profile Edit Failed!<br/>{{ errorMessage }}
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    <br><br>
+    <mat-card class="my-card">
+        <mat-card-content>After successful profile editing, you can view your profile for changes.</mat-card-content>
+      </mat-card>
+</div>
+<ng-template #loggedOut>
+    <mat-card class="my-card">
+      <mat-card-content>Please login</mat-card-content>
+    </mat-card>
+  </ng-template>

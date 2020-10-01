@@ -1,0 +1,17 @@
+<div class="mat-card-cvr">
+  <mat-card  class="my-card" *ngIf="currentUser; else loggedOut">
+    <mat-card-title>Profile</mat-card-title>
+    <mat-card-subtitle>This section contains information about the user.</mat-card-subtitle>
+    <mat-card-content><b>Username</b>: {{content.username}}</mat-card-content>
+    <mat-card-content><b>First Name</b>: {{content.firstName}}</mat-card-content>
+    <mat-card-content><b>Last Name</b>: {{content.lastName}}</mat-card-content>
+    <mat-card-content><b>Mobile no.</b>: {{content.mobile}}</mat-card-content>
+    <mat-card-content><b>Email</b>: {{content.email}}</mat-card-content>
+  
+  </mat-card>
+  </div> 
+  <ng-template #loggedOut>
+    <mat-card class="my-card">
+      <mat-card-content>Please login.</mat-card-content>
+    </mat-card>
+  </ng-template>
